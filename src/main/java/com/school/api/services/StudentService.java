@@ -38,9 +38,13 @@ public class StudentService {
 	public Student getStudent(int id) {
 
 		Optional<Student> s = dao.findById(id);
-		Student st = s.get(); 
+		if(s.isPresent()) {
+			Student st = s.get(); 
 		System.out.println(st.getFname()+st.getLname());
 		return st;
+		}
+		else 
+			return null;
 		
 	}
 
@@ -50,9 +54,14 @@ public class StudentService {
 		return student;
 	}
 
-	public void deleteStudent(int id) {
+	public String deleteStudent(int id) {
 
-		 dao.deleteById(id);
+		Student s = getStudent(id);
+		if(s!=null) {
+			dao.deleteById(id);
+			return "sucess";}
+			else
+				return "fail";
 		
 	}
 

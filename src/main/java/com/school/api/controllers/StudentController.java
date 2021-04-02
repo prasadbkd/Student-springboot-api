@@ -38,13 +38,13 @@ public class StudentController {
 	}
 	
 	@GetMapping("/students/{id}")
-	public ResponseEntity<Student> getStudent(@PathVariable int id){
+	public ResponseEntity<Object> getStudent(@PathVariable int id){
 		Student s = service.getStudent(id);
 		
 		if(s!=null)
-			return new ResponseEntity<Student>(s,HttpStatus.OK);
+			return new ResponseEntity<>(s,HttpStatus.OK);
 		else
-			return new ResponseEntity<Student>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("The requested data is not present",HttpStatus.OK);
 	}
 	
 	
@@ -68,8 +68,8 @@ public class StudentController {
 	
 	@DeleteMapping("/students/{id}")
 	public ResponseEntity<String> deleteStudent(@PathVariable int id){
-		service.deleteStudent(id);
-			return new ResponseEntity<>("Deleted sucessfully",HttpStatus.OK);
+		String s = service.deleteStudent(id);
+			return new ResponseEntity<>(s,HttpStatus.OK);
 		
 	}
 
